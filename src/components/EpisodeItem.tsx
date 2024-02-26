@@ -13,12 +13,12 @@ function EpisodeItem({ episode, onAnother }: Props) {
         window.open(url, '_blank')
     }
     return (
-        <div className="m-4 flex flex-col gap-y-2">
-            <img
-                src={episode.image_url}
-                alt={episode.title}
-                className="h-auto w-full rounded"
-            />
+        <div className="flex w-full flex-col gap-y-2">
+            <div
+                style={{
+                    backgroundImage: `url(${episode.image_url})`,
+                }}
+                className="h-[192px] w-full rounded bg-gray-100 bg-cover bg-top bg-no-repeat"></div>
             <span className="text-xs font-semibold text-gray-400">
                 Season {episode.season}, Episode {episode.no_in_season}
             </span>
