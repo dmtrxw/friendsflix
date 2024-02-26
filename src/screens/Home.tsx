@@ -47,9 +47,9 @@ function Home({ onGenerateRandomEpisode }: Props) {
                          active:bg-slate-900">
                 <ArrowPath /> Generate random episode
             </button>
-            <h2 className="text-gray-400">
-                or, directly watch our recommended episode based on how you
-                wanna feel:
+            <h2 className="text-center text-gray-400">
+                or directly watch our recommended episode based on how you wanna
+                feel:
             </h2>
             <button
                 onClick={() => fetchRandomEpisodeByMood('smile')}
