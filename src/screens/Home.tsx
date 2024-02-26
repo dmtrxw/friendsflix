@@ -1,14 +1,16 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import friendsLogo from '@/assets/friends-logo.png'
 import ArrowPath from '@/components/ArrowPath'
 import Spinner from '@/components/Spinner'
+import { Episode } from '@/types'
 
 interface Props {
     onGenerateRandomEpisode: () => void
 }
 
 function Home({ onGenerateRandomEpisode }: Props) {
+    const [episodeByMood, setEpisodeByMood] = useState<Episode | {}>({})
     const [isLoading, setIsLoading] = useState(false)
     const [error, setError] = useState(null)
 
@@ -20,7 +22,7 @@ function Home({ onGenerateRandomEpisode }: Props) {
             )
             const responseBody = await response.json()
 
-            window.open(responseBody.netflix_url)
+            setEpisodeByMood(responseBody)
         } catch (err) {
             setError(error)
             console.log(err)
@@ -28,6 +30,12 @@ function Home({ onGenerateRandomEpisode }: Props) {
             setIsLoading(false)
         }
     }
+
+    useEffect(() => {
+        if ('netflix_url' in episodeByMood) {
+            window.open(episodeByMood.netflix_url)
+        }
+    }, [episodeByMood])
 
     if (isLoading) return <Spinner />
     if (error)
