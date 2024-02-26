@@ -1,9 +1,9 @@
-import Spinner from '@/components/Spinner'
-import ArrowLeft from '@/components/ArrowLeft'
 import { useEffect, useState } from 'react'
 
-import { Episode } from '@/types'
+import ArrowLeft from '@/components/ArrowLeft'
 import EpisodeItem from '@/components/EpisodeItem'
+import Spinner from '@/components/Spinner'
+import { Episode } from '@/types'
 
 interface Props {
     onBack: () => void

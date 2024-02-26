@@ -9,5 +9,11 @@
     "endOfLine": "lf",
     "arrowParens": "avoid",
     "printWidth": 80,
-    "plugins": ["prettier-plugin-tailwindcss"]
+    "plugins": [
+        "prettier-plugin-tailwindcss",
+        "@trivago/prettier-plugin-sort-imports"
+    ],
+    "importOrder": ["<THIRD_PARTY_MODULES>", "^@/(.*)$", "^[./]"],
+    "importOrderSeparation": true,
+    "importOrderSortSpecifiers": true
 }

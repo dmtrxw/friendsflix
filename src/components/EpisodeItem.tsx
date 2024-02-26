@@ -1,7 +1,7 @@
 import { Episode } from '@/types'
 
-import TV from './TV'
 import ArrowPath from './ArrowPath'
+import TV from './TV'
 
 interface Props {
     episode: Episode

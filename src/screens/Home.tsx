@@ -1,8 +1,8 @@
 import { useState } from 'react'
 
+import friendsLogo from '@/assets/friends-logo.png'
 import ArrowPath from '@/components/ArrowPath'
 import Spinner from '@/components/Spinner'
-import friendsLogo from '@/assets/friends-logo.png'
 
 interface Props {
     onGenerateRandomEpisode: () => void

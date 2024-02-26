@@ -1,7 +1,7 @@
+import { useState } from 'react'
+
 import Home from '@/screens/Home'
 import RandomEpisode from '@/screens/RandomEpisode'
-
-import { useState } from 'react'
 
 type Screen = 'home' | 'random-episode'
 
