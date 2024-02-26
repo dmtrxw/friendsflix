@@ -20,7 +20,7 @@ function Home({ onGenerateRandomEpisode }: Props) {
             )
             const responseBody = await response.json()
 
-            window.open(responseBody.netflix_url, '_blank')
+            window.open(responseBody.netflix_url)
         } catch (err) {
             setError(error)
             console.log(err)
