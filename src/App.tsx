@@ -11,7 +11,7 @@ function App() {
         setCurrentScreen('random-episode')
     }
     return (
-        <div className="flex h-screen w-full items-center justify-center">
+        <div className="flex h-dvh w-full items-center justify-center">
             {currentScreen === 'home' && (
                 <Home onGenerateRandomEpisode={handleGenerateRandomEpisode} />
             )}
