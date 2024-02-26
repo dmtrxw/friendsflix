@@ -1,5 +1,23 @@
+import Home from '@/screens/Home'
+import RandomEpisode from '@/screens/RandomEpisode'
+
+import { useState } from 'react'
+
+type Screen = 'home' | 'random-episode'
+
 function App() {
-    return <h1 className="text-3xl font-bold">Hello World</h1>
+    const [currentScreen, setCurrentScreen] = useState<Screen>('home')
+    const handleGenerateRandomEpisode = () => {
+        setCurrentScreen('random-episode')
+    }
+    return (
+        <div className="flex h-screen w-full items-center justify-center">
+            {currentScreen === 'home' && (
+                <Home onGenerateRandomEpisode={handleGenerateRandomEpisode} />
+            )}
+            {currentScreen === 'random-episode' && <RandomEpisode />}
+        </div>
+    )
 }
 
 export default App
