@@ -26,9 +26,10 @@ function Home({ onGenerateRandomEpisode }: Props) {
 
             if (isIOS) {
                 destination = destination.replace('https://', 'nflx://')
+                window.location.assign(destination)
+            } else {
+                window.open(destination)
             }
-
-            window.open(destination)
         } catch (err) {
             setError(error)
             console.log(err)

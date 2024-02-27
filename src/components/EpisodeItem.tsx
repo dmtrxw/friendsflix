@@ -1,3 +1,5 @@
+import { isIOS } from 'react-device-detect'
+
 import { Episode } from '@/types'
 
 import ArrowPath from './ArrowPath'
@@ -10,7 +12,13 @@ interface Props {
 
 function EpisodeItem({ episode, onAnother }: Props) {
     const handleWatch = (url: string) => {
-        window.open(url)
+        let destination = url
+        if (isIOS) {
+            destination = destination.replace('https://', 'nflx://')
+            window.location.assign(destination)
+        } else {
+            window.open(destination)
+        }
     }
     return (
         <div className="flex w-full flex-col gap-y-2">
