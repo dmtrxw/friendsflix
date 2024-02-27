@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
+import { isIOS } from 'react-device-detect'
 
 import friendsLogo from '@/assets/friends-logo.png'
 import ArrowPath from '@/components/ArrowPath'
@@ -10,33 +11,25 @@ interface Props {
 }
 
 function Home({ onGenerateRandomEpisode }: Props) {
-    const [smileNetflixURL, setSmileNetflixURL] = useState('')
-    const [cryNetflixURL, setCryNetflixURL] = useState('')
-    const [laughNetflixURL, setLaughNetflixURL] = useState('')
-
-    const [isLoading, setIsLoading] = useState(true)
+    const [isLoading, setIsLoading] = useState(false)
     const [error, setError] = useState(null)
 
-    const fetchRandomEpisodeByMoods = async () => {
+    const generateRandomEpisodeByMood = async (mood: string) => {
         try {
             setIsLoading(true)
-            const responseSmile = await fetch(
-                `https://friends-episodes-api.vercel.app/randomize-smile`
+            const response = await fetch(
+                `https://friends-episodes-api.vercel.app/randomize-${mood}`
             )
-            const responseCry = await fetch(
-                `https://friends-episodes-api.vercel.app/randomize-cry`
-            )
-            const responseLaugh = await fetch(
-                `https://friends-episodes-api.vercel.app/randomize-laugh`
-            )
+            const responseBody: Episode = await response.json()
 
-            const responseBodySmile: Episode = await responseSmile.json()
-            const responseBodyCry: Episode = await responseCry.json()
-            const responseBodyLaugh: Episode = await responseLaugh.json()
+            let destination = responseBody.netflix_url
 
-            setSmileNetflixURL(responseBodySmile.netflix_url)
-            setCryNetflixURL(responseBodyCry.netflix_url)
-            setLaughNetflixURL(responseBodyLaugh.netflix_url)
+            if (isIOS) {
+                destination = destination.replace('https://', 'nflx://')
+                window.location.assign(destination)
+            } else {
+                window.open(destination)
+            }
         } catch (err) {
             setError(error)
             console.log(err)
@@ -44,10 +37,6 @@ function Home({ onGenerateRandomEpisode }: Props) {
             setIsLoading(false)
         }
     }
-
-    useEffect(() => {
-        fetchRandomEpisodeByMoods()
-    }, [])
 
     if (isLoading) return <Spinner />
     if (error)
@@ -72,21 +61,21 @@ function Home({ onGenerateRandomEpisode }: Props) {
                 feel:
             </h2>
             <button
-                onClick={() => window.open(smileNetflixURL)}
+                onClick={() => generateRandomEpisodeByMood('smile')}
                 className="inline-flex justify-center gap-x-2 rounded border border-amber-600 px-4 py-2 font-bold
                          text-black hover:bg-amber-700 hover:text-white focus:outline-none focus:ring 
                          active:bg-amber-800 active:text-white">
                 I want to smile ☺️
             </button>
             <button
-                onClick={() => window.open(cryNetflixURL)}
+                onClick={() => generateRandomEpisodeByMood('cry')}
                 className="inline-flex justify-center gap-x-2 rounded border border-blue-700 px-4 py-2 font-bold
                          text-black hover:bg-blue-800 hover:text-white focus:outline-none focus:ring 
                          active:bg-blue-900 active:text-white">
                 I want to cry 🥹
             </button>
             <button
-                onClick={() => window.open(laughNetflixURL)}
+                onClick={() => generateRandomEpisodeByMood('laugh')}
                 className="inline-flex justify-center gap-x-2 rounded border border-emerald-400 px-4 py-2 font-bold
                          text-black hover:bg-emerald-500 hover:text-white focus:outline-none focus:ring 
                          active:bg-emerald-600 active:text-white">
