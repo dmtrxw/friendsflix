@@ -10,7 +10,7 @@ interface Props {
 
 function EpisodeItem({ episode, onAnother }: Props) {
     const handleWatch = (url: string) => {
-        window.open(url, '_blank')
+        window.open(url)
     }
     return (
         <div className="flex w-full flex-col gap-y-2">
